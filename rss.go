@@ -61,9 +61,10 @@ type RssFeed struct {
 
 type RssItem struct {
 	XMLName     xml.Name `xml:"item"`
-	Title       string   `xml:"title"`       // required
-	Link        string   `xml:"link"`        // required
-	Description string   `xml:"description"` // required
+	Title       string   `xml:"title"`           // required
+	Link        string   `xml:"link"`            // required
+	ImageUrl    string   `xml:"image"`
+	Description string   `xml:"description"`     // required
 	Author      string   `xml:"author,omitempty"`
 	Category    string   `xml:"category,omitempty"`
 	Comments    string   `xml:"comments,omitempty"`
@@ -87,9 +88,11 @@ type Rss struct {
 
 // create a new RssItem with a generic Item struct's data
 func newRssItem(i *Item) *RssItem {
+	fmt.Println(":d",i.ImageUrl.Href)
 	item := &RssItem{
 		Title:       i.Title,
 		Link:        i.Link.Href,
+		ImageUrl:    i.ImageUrl.Href,
 		Description: i.Description,
 		Guid:        i.Id,
 		PubDate:     anyTimeFormat(time.RFC1123Z, i.Created, i.Updated),
